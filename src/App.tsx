@@ -1,11 +1,11 @@
 import {createSignal, Component, JSXElement, Show} from "solid-js";
 import { styled } from "solid-styled-components";
 
-import logo from './logo.svg';
-import styles from './App.module.css';
-import {SimpleNodes} from "./SimpleNodes";
-import {NodesWithMenus} from "./NodesWithMenus";
-import {NodesWithControls} from "./NodesWithControls";
+import logo from './assets/logo.svg';
+import styles from './styles/App.module.css';
+import {SimpleNodes} from "./examples/SimpleNodes";
+import {NodesWithMenus} from "./examples/NodesWithMenus";
+import {NodesWithControls} from "./examples/NodesWithControls";
 
 // Styled layout components
 const AppContainer = styled("div")`
