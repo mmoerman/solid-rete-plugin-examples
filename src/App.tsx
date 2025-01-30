@@ -1,5 +1,5 @@
-import {createSignal, Component, JSXElement, Show} from "solid-js";
-import { styled } from "solid-styled-components";
+import {Component, createSignal} from "solid-js";
+import {styled} from "solid-styled-components";
 
 import logo from './assets/logo.svg';
 import styles from './styles/App.module.css';

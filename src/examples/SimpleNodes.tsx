@@ -1,11 +1,8 @@
-import { createEffect, onCleanup, Component, createRoot } from "solid-js";
-import { NodeEditor, GetSchemes, ClassicPreset } from "rete";
-import { AreaPlugin, AreaExtensions } from "rete-area-plugin";
-import {
-    ConnectionPlugin,
-    Presets as ConnectionPresets,
-} from "rete-connection-plugin";
-import { SolidPlugin, Presets, SolidArea2D } from "solid-rete-plugin";
+import {Component, createEffect, onCleanup} from "solid-js";
+import {ClassicPreset, GetSchemes, NodeEditor} from "rete";
+import {AreaExtensions, AreaPlugin} from "rete-area-plugin";
+import {ConnectionPlugin, Presets as ConnectionPresets,} from "rete-connection-plugin";
+import {Presets, SolidArea2D, SolidPlugin} from "solid-rete-plugin";
 
 type Schemes = GetSchemes<
     ClassicPreset.Node,
