@@ -1,8 +1,8 @@
 import {Component, createEffect, onCleanup} from "solid-js";
 import {ClassicPreset, GetSchemes, NodeEditor} from "rete";
 import {AreaExtensions, AreaPlugin} from "rete-area-plugin";
-import {ConnectionPlugin, Presets as ConnectionPresets,} from "rete-connection-plugin";
 import {Presets, SolidArea2D, SolidPlugin} from "solid-rete-plugin";
+import { ReadonlyPlugin } from "rete-readonly-plugin";
 
 type Schemes = GetSchemes<
     ClassicPreset.Node,
@@ -10,7 +10,7 @@ type Schemes = GetSchemes<
 >;
 type AreaExtra = SolidArea2D<Schemes>;
 
-export const SimpleNodes: Component = () => {
+export const ReadonlyNodes: Component = () => {
     let containerRef: HTMLDivElement | undefined;
 
     let editorDestroy: (() => void) | undefined;
@@ -41,9 +41,10 @@ export const SimpleNodes: Component = () => {
 async function createEditor(container: HTMLElement) {
     const socket = new ClassicPreset.Socket("socket");
 
+    // For readonly we removed the connection plugin.
+    const readonly = new ReadonlyPlugin<Schemes>();
     const editor = new NodeEditor<Schemes>();
     const area = new AreaPlugin<Schemes, AreaExtra>(container);
-    const connection = new ConnectionPlugin<Schemes, AreaExtra>();
     const render = new SolidPlugin<Schemes, AreaExtra>();
 
     AreaExtensions.selectableNodes(area, AreaExtensions.selector(), {
@@ -52,21 +53,20 @@ async function createEditor(container: HTMLElement) {
 
     render.addPreset(Presets.classic.setup());
 
-    connection.addPreset(ConnectionPresets.classic.setup());
-
+    editor.use(readonly.root);
     editor.use(area);
-    area.use(connection);
+    area.use(readonly.area);
     area.use(render);
 
     AreaExtensions.simpleNodesOrder(area);
 
-    const a = new ClassicPreset.Node("A");
-    a.addControl("a", new ClassicPreset.InputControl("text", { initial: "a" }));
+    const a = new ClassicPreset.Node("Readonly A");
+    a.addControl("a", new ClassicPreset.InputControl("text", { initial: "a", readonly: true }));
     a.addOutput("a", new ClassicPreset.Output(socket));
     await editor.addNode(a);
 
-    const b = new ClassicPreset.Node("B");
-    b.addControl("b", new ClassicPreset.InputControl("text", { initial: "b" }));
+    const b = new ClassicPreset.Node("Readonly B");
+    b.addControl("b", new ClassicPreset.InputControl("text", { initial: "b", readonly: true }));
     b.addInput("b", new ClassicPreset.Input(socket));
     await editor.addNode(b);
 
@@ -79,6 +79,10 @@ async function createEditor(container: HTMLElement) {
         // wait until nodes rendered because they don't have predefined width and height
         AreaExtensions.zoomAt(area, editor.getNodes());
     }, 10);
+
+    // Be careful when enabling readonly you can no longer use editor.addNode
+    // this is why we enable it at the end.
+    readonly.enable();
 
     // Return a cleanup function
     return {

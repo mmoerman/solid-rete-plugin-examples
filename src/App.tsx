@@ -6,6 +6,7 @@ import styles from './styles/App.module.css';
 import {SimpleNodes} from "./examples/SimpleNodes";
 import {NodesWithMenus} from "./examples/NodesWithMenus";
 import {NodesWithControls} from "./examples/NodesWithControls";
+import {ReadonlyNodes} from "./examples/ReadonlyNodes";
 
 // Styled layout components
 const AppContainer = styled("div")`
@@ -74,6 +75,9 @@ const App: Component = () => {
                     {/* Navigation Links */}
                     <SidebarLink href="#" onClick={() => setCurrentComponent(() => SimpleNodes)}>
                         Simple Example
+                    </SidebarLink>
+                    <SidebarLink href="#" onClick={() => setCurrentComponent(() => ReadonlyNodes)}>
+                        Readonly Example
                     </SidebarLink>
                     <SidebarLink href="#" onClick={() => setCurrentComponent(() => NodesWithMenus)}>
                         Example With Menus

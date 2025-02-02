@@ -21,6 +21,7 @@
     "rete-auto-arrange-plugin": "^2.0.2",
     "rete-connection-plugin": "^2.0.5",
     "rete-context-menu-plugin": "^2.0.4",
+    "rete-readonly-plugin": "^2.0.2",
     "rete-render-utils": "^2.0.3",
     "solid-js": "^1.9.3",
     "solid-rete-plugin": "^0.1.18",
