@@ -13,15 +13,21 @@ type AreaExtra = SolidArea2D<Schemes>;
 export const SimpleNodes: Component = () => {
     let containerRef: HTMLDivElement | undefined;
 
+    let editorDestroy: (() => void) | undefined;
+
+    onCleanup(() => {
+        if (editorDestroy) {
+            editorDestroy();
+        }
+    });
+
     createEffect(() => {
         if (!containerRef) return;
 
         // Initialize createEditor function with the container
+        // Initialize createEditor function with the container
         createEditor(containerRef).then((editorInstance) => {
-            // Cleanup: Destroy the editor instance when the component unmounts
-            onCleanup(() => {
-                editorInstance.destroy();
-            });
+            editorDestroy = () => editorInstance.destroy();
         });
     });
 
