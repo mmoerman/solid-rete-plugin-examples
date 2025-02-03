@@ -32,7 +32,7 @@ export const SimpleNodes: Component = () => {
 
     return (
         <div ref={(el) => (containerRef = el)}
-             style={{ width: "100%", height: "100vh", border: "1px solid #ccc" }}
+             style={{width: "100%", height: "100vh", border: "1px solid #ccc"}}
         >
         </div>
     );
@@ -61,19 +61,19 @@ async function createEditor(container: HTMLElement) {
     AreaExtensions.simpleNodesOrder(area);
 
     const a = new ClassicPreset.Node("A");
-    a.addControl("a", new ClassicPreset.InputControl("text", { initial: "a" }));
+    a.addControl("a", new ClassicPreset.InputControl("text", {initial: "a"}));
     a.addOutput("a", new ClassicPreset.Output(socket));
     await editor.addNode(a);
 
     const b = new ClassicPreset.Node("B");
-    b.addControl("b", new ClassicPreset.InputControl("text", { initial: "b" }));
+    b.addControl("b", new ClassicPreset.InputControl("text", {initial: "b"}));
     b.addInput("b", new ClassicPreset.Input(socket));
     await editor.addNode(b);
 
     await editor.addConnection(new ClassicPreset.Connection(a, "a", b, "b"));
 
-    await area.translate(a.id, { x: 0, y: 0 });
-    await area.translate(b.id, { x: 270, y: 0 });
+    await area.translate(a.id, {x: 0, y: 0});
+    await area.translate(b.id, {x: 270, y: 0});
 
     setTimeout(() => {
         // wait until nodes rendered because they don't have predefined width and height

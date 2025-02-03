@@ -1,19 +1,9 @@
-import { NodeEditor, GetSchemes, ClassicPreset } from "rete";
-import { AreaPlugin, AreaExtensions } from "rete-area-plugin";
-import {
-    ConnectionPlugin,
-    Presets as ConnectionPresets
-} from "rete-connection-plugin";
-import { SolidPlugin, Presets, SolidArea2D } from "solid-rete-plugin";
-import {
-    AutoArrangePlugin,
-    Presets as ArrangePresets
-} from "rete-auto-arrange-plugin";
-import {
-    ContextMenuExtra,
-    ContextMenuPlugin,
-    Presets as ContextMenuPresets
-} from "rete-context-menu-plugin";
+import {ClassicPreset, GetSchemes, NodeEditor} from "rete";
+import {AreaExtensions, AreaPlugin} from "rete-area-plugin";
+import {ConnectionPlugin, Presets as ConnectionPresets} from "rete-connection-plugin";
+import {Presets, SolidArea2D, SolidPlugin} from "solid-rete-plugin";
+import {AutoArrangePlugin, Presets as ArrangePresets} from "rete-auto-arrange-plugin";
+import {ContextMenuExtra, ContextMenuPlugin, Presets as ContextMenuPresets} from "rete-context-menu-plugin";
 import {Component, createEffect, onCleanup} from "solid-js";
 
 type Node = NodeA | NodeB;
@@ -51,7 +41,8 @@ class NodeB extends ClassicPreset.Node {
 class Connection<
     A extends Node,
     B extends Node
-> extends ClassicPreset.Connection<A, B> {}
+> extends ClassicPreset.Connection<A, B> {
+}
 
 export const NodesWithMenus: Component = () => {
     let containerRef: HTMLDivElement | undefined;
@@ -75,7 +66,7 @@ export const NodesWithMenus: Component = () => {
     return (
         <div
             ref={(el) => (containerRef = el)}
-            style={{ width: "100%", height: "100vh", border: "1px solid #ccc" }}
+            style={{width: "100%", height: "100vh", border: "1px solid #ccc"}}
         ></div>
     );
 };

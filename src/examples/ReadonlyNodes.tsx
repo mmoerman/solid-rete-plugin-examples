@@ -2,7 +2,7 @@ import {Component, createEffect, onCleanup} from "solid-js";
 import {ClassicPreset, GetSchemes, NodeEditor} from "rete";
 import {AreaExtensions, AreaPlugin} from "rete-area-plugin";
 import {Presets, SolidArea2D, SolidPlugin} from "solid-rete-plugin";
-import { ReadonlyPlugin } from "rete-readonly-plugin";
+import {ReadonlyPlugin} from "rete-readonly-plugin";
 
 type Schemes = GetSchemes<
     ClassicPreset.Node,
@@ -32,7 +32,7 @@ export const ReadonlyNodes: Component = () => {
 
     return (
         <div ref={(el) => (containerRef = el)}
-             style={{ width: "100%", height: "100vh", border: "1px solid #ccc" }}
+             style={{width: "100%", height: "100vh", border: "1px solid #ccc"}}
         >
         </div>
     );
@@ -61,19 +61,19 @@ async function createEditor(container: HTMLElement) {
     AreaExtensions.simpleNodesOrder(area);
 
     const a = new ClassicPreset.Node("Readonly A");
-    a.addControl("a", new ClassicPreset.InputControl("text", { initial: "a", readonly: true }));
+    a.addControl("a", new ClassicPreset.InputControl("text", {initial: "a", readonly: true}));
     a.addOutput("a", new ClassicPreset.Output(socket));
     await editor.addNode(a);
 
     const b = new ClassicPreset.Node("Readonly B");
-    b.addControl("b", new ClassicPreset.InputControl("text", { initial: "b", readonly: true }));
+    b.addControl("b", new ClassicPreset.InputControl("text", {initial: "b", readonly: true}));
     b.addInput("b", new ClassicPreset.Input(socket));
     await editor.addNode(b);
 
     await editor.addConnection(new ClassicPreset.Connection(a, "a", b, "b"));
 
-    await area.translate(a.id, { x: 0, y: 0 });
-    await area.translate(b.id, { x: 270, y: 0 });
+    await area.translate(a.id, {x: 0, y: 0});
+    await area.translate(b.id, {x: 270, y: 0});
 
     setTimeout(() => {
         // wait until nodes rendered because they don't have predefined width and height
